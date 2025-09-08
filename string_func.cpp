@@ -4,6 +4,7 @@
 
 #include "string_func.h"
 
+//------------------------------------------------------------------------------------
 
 int Puts(const char* string) {
     if (printf("%s\n", string) == 1) {
@@ -13,6 +14,7 @@ int Puts(const char* string) {
     return EOF;
 }
 
+//------------------------------------------------------------------------------------
 
 char* Strchr(const char* string, int ch) {
     size_t pos = 0;
@@ -25,6 +27,7 @@ char* Strchr(const char* string, int ch) {
     return nullptr;
 }
 
+//------------------------------------------------------------------------------------
 
 size_t Strlen(const char* string) {
     size_t size = 0;
@@ -36,6 +39,7 @@ size_t Strlen(const char* string) {
     return size;
 }
 
+//------------------------------------------------------------------------------------
 
 char* Strcpy(char* destination, const char* source) {
     size_t pos = 0;
@@ -49,6 +53,7 @@ char* Strcpy(char* destination, const char* source) {
     return destination;
 }
 
+//------------------------------------------------------------------------------------
 
 char* Strncpy(char* destination, const char* source, size_t n) {
     bool flag = false;
@@ -66,6 +71,7 @@ char* Strncpy(char* destination, const char* source, size_t n) {
     return destination;
 }
 
+//------------------------------------------------------------------------------------
 
 char* Strcat(char *destination, const char *source) {
     size_t len_d = Strlen(destination),
@@ -78,6 +84,7 @@ char* Strcat(char *destination, const char *source) {
     return destination;
 }
 
+//------------------------------------------------------------------------------------
 
 char* Strncat(char* destination, const char* source, size_t n) {
     size_t len_d = Strlen(destination),
@@ -93,6 +100,7 @@ char* Strncat(char* destination, const char* source, size_t n) {
     return destination;
 }
 
+//------------------------------------------------------------------------------------
 
 int Atoi(const char* string) {
     int result = 0;
@@ -108,11 +116,12 @@ int Atoi(const char* string) {
     return result;
 }
 
+//------------------------------------------------------------------------------------
 
 char* Fgets(char* string, int n, FILE* stream) {
     char a = '\0';
 
-    for (size_t i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++) {
         fscanf(stream, "%c", &a);
 
         if (a == EOF) { return nullptr; }
@@ -124,16 +133,33 @@ char* Fgets(char* string, int n, FILE* stream) {
     return string;
 }
 
+//------------------------------------------------------------------------------------
 
 char* Strdup(const char* source) {
-    size_t s_size = Strlen(source);
-    const char* str = "";
+    char* new_string;
 
-    if (str == nullptr) { return nullptr; }
+    new_string = (char*)calloc(Strlen(source) + 1, sizeof(char));
 
-    for (size_t i = 0; i < s_size + 1; i++) {
-        str[i] = source[i];
+    if (new_string != nullptr) {
+        Strcpy(new_string, source);
     }
 
-    return str;
+    return new_string;
+}
+
+//------------------------------------------------------------------------------------
+
+int Getline(char* string, FILE* source) {
+    int pos = 0;
+    char symbol = '\0';
+
+    do {
+        symbol = getchar(source);
+    } while (symbol != '\n' && symbol != EOF) {
+        string[pos] = symbol;
+        pos++;
+    }
+    string[pos] = '\0';
+
+    return pos;
 }
