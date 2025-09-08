@@ -38,12 +38,16 @@ int main(void) {
 //------------------------------------------------------------------------------------
     char str11[10] = "abc";
     Fgets(str11, 10, stdin); // input sth
+
+    while (fgetc(stdin) != '\n') { continue; }
+
     printf("%s\n", str11);                                         // ur input if char_ct <= 9 | first 10 char in ur input and trash | EOF if char_ct = 0
 //------------------------------------------------------------------------------------
     printf("%p\n", Strdup("abc"));                                 // -> 0x... (указатель на выделенный адрес строки)
+//------------------------------------------------------------------------------------
+    char str12[10] = "";
+    Getline(str12, stdin);                                         // ur input line
+    printf("%s\n", str12);
 
-    /*
-    Getline();
-    */
     return 0;
 }

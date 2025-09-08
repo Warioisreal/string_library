@@ -1,13 +1,23 @@
 #include <stdio.h>
 #include <math.h>
-
+#include <string.h>
 
 #include "string_func.h"
 
 //------------------------------------------------------------------------------------
 
 int Puts(const char* string) {
-    if (printf("%s\n", string) == 1) {
+    char symbol = string[0];
+    size_t pos = 0;
+
+    while (symbol != '\0') {
+        putchar(symbol);
+        pos++;
+        symbol = string[pos];
+    }
+
+    if (pos > 0) {
+        putchar('\n');
         return 1;
     }
 
@@ -150,15 +160,15 @@ char* Strdup(const char* source) {
 //------------------------------------------------------------------------------------
 
 int Getline(char* string, FILE* source) {
+    char symbol = (char)fgetc(source);
     int pos = 0;
-    char symbol = '\0';
 
-    do {
-        symbol = getchar(source);
-    } while (symbol != '\n' && symbol != EOF) {
+    while (symbol != '\n' && symbol != EOF) {
         string[pos] = symbol;
         pos++;
+        symbol = (char)fgetc(source);
     }
+
     string[pos] = '\0';
 
     return pos;
