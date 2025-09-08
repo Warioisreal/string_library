@@ -1,0 +1,1 @@
+int GetDigit(char ch);
