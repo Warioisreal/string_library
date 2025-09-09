@@ -149,18 +149,29 @@ int Atoi(const char* string) {
     assert (string != nullptr);
 
     int result = 0;
+    int sign = 1;
     size_t pos = 0;
     char ch = string[pos];
 
+    bool notspace_met = false;
+
     while (ch != '\0') {
-        if (('0' <= ch) && (ch <= '9')) {
-            result = result * 10 + GetDigit(ch);
+        if (isspace(ch)) {
+            if (!notspace_met) { continue; }
+            else { return 0; }
         }
+
+        if (ch == '-' && !notspace_met) { sign = -1; }
+
+        notspace_met = true;
+
+        if (('0' <= ch) && (ch <= '9')) { result = result * 10 + GetDigit(ch); }
+        else { return 0; }
         pos++;
         ch = string[pos];
     }
 
-    return result;
+    return result * sign;
 }
 
 //------------------------------------------------------------------------------------

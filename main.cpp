@@ -34,10 +34,11 @@ int main(void) {
     PrintColorVar(GREEN, "srtncat_1: %s\n", Strncat(str5, str6, 10));           // -> Hello world!
     PrintColorVar(CYAN, "strncat_2: %s\n", Strncat(str7, str8, 4));             // -> Hello worl
 //------------------------------------------------------------------------------------
-    const char* str9 = "123abc";
+    const char* str9 = " -45";
     const char* str10 = "abc";
-    PrintColorVar(MAGENTA, "atoi_1: %d\n", Atoi(str9));                         // -> 123
-    PrintColorVar(RED, "atoi_2: %d\n", Atoi(str10));                            // -> 0
+    //PrintColorVar(MAGENTA, "atoi_1: %d\n", Atoi(str9));                         // -> 123
+    //PrintColorVar(RED, "atoi_2: %d\n", Atoi(str10));                            // -> 0
+    PrintColorVar(MAGENTA, "atoi_1: %d\n", atoi(str9));
 //------------------------------------------------------------------------------------
     char str11[10] = "abc";
     PrintColor(YELLOW, "enter string (max_size = 9 symbols)\n");
