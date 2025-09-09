@@ -2,6 +2,7 @@
 #include <math.h>
 #include <string.h>
 #include <assert.h>
+#include <ctype.h>
 
 #include "string_func.h"
 #include "sup_func.h"
@@ -133,7 +134,7 @@ char* Strncat(char* destination, const char* source, size_t n) {
     size_t len_d = Strlen(destination),
            pos   = 0;
 
-    while ((source[pos] != '\0') && (pos < n - 1)) { // n задаётся с запасом на \0
+    while (source[pos] != '\0' && pos < (n - 1)) { // n задаётся с запасом на \0
         destination[pos + len_d] = source[pos];
         pos++;
     }
@@ -149,29 +150,32 @@ int Atoi(const char* string) {
     assert (string != nullptr);
 
     int result = 0;
-    int sign = 1;
+    int sign = 11;
     size_t pos = 0;
     char ch = string[pos];
 
-    bool notspace_met = false;
-
     while (ch != '\0') {
         if (isspace(ch)) {
-            if (!notspace_met) { continue; }
-            else { return 0; }
+            if (abs(sign) == 1) { return 0; }
         }
-
-        if (ch == '-' && !notspace_met) { sign = -1; }
-
-        notspace_met = true;
-
-        if (('0' <= ch) && (ch <= '9')) { result = result * 10 + GetDigit(ch); }
+        else if (ch == '-' && abs(sign) != 1) {
+            sign = -1;
+        }
+        else if (ch == '+' && abs(sign) != 1) {
+            sign = 1;
+        }
+        else if ('0' <= ch && ch <= '9') {
+            result = result * 10 + GetDigit(ch);
+        }
         else { return 0; }
+
         pos++;
         ch = string[pos];
     }
 
-    return result * sign;
+    if (abs(sign) == 1) { result *= sign; }
+
+    return result;
 }
 
 //------------------------------------------------------------------------------------
