@@ -150,12 +150,14 @@ int Atoi(const char* string) {
 
     int result = 0;
     size_t pos = 0;
+    char ch = string[pos];
 
-    while (string[pos] != '\0') {
-        if (('0' <= string[pos]) && (string[pos] <= '9')) {
-            result = result * 10 + GetDigit(string[pos]);
+    while (ch != '\0') {
+        if (('0' <= ch) && (ch <= '9')) {
+            result = result * 10 + GetDigit(ch);
         }
         pos++;
+        ch = string[pos];
     }
 
     return result;
