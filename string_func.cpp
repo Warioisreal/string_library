@@ -194,7 +194,10 @@ char* Fgets(char* string, int n, FILE* stream) {
         if (ch == EOF) { return nullptr; }
 
         if (ch != '\n') { string[i] = ch; }
-        else { break; }
+        else {
+            string[i] = '\0';
+            break;
+        }
     }
     string[n - 1] = '\0';
 

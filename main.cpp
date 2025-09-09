@@ -45,12 +45,7 @@ int main(void) {
 
     Fgets(str11, 10, stdin); // input sth
 
-    if (str11[10] != '\0') {
-        while (fgetc(stdin) != '\n') { continue; }
-        PrintColorVar(CYAN, "fgets: %s\n", str11);                              // first 10 char in ur input and trash
-    } else {
-        PrintColorVar(GREEN, "fgets: %s\n", str11);                             // ur input
-    }
+    PrintColorVar(CYAN, "fgets: %s\n", str11);                                  // first 9 char in ur input
 
 //------------------------------------------------------------------------------------
     char* str_dup = nullptr;
