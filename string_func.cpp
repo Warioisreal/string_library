@@ -179,7 +179,7 @@ char* Fgets(char* string, int n, FILE* stream) {
         if (ch != '\n') { string[i] = ch; }
         else { break; }
     }
-    string[n] = '\0';
+    string[n - 1] = '\0';
 
     return string;
 }
@@ -203,13 +203,18 @@ char* Strdup(const char* source) {
 
 //------------------------------------------------------------------------------------
 
-int Getline(char* string, FILE* source) {
+int Getline(char** lineptr, size_t* n, FILE* source) {
 
-    assert (string != nullptr);
+    assert (n != nullptr);
     assert (source != nullptr);
 
+    if (*lineptr == nullptr) {
+        *lineptr = (char*)calloc(*n + 1, sizeof(char));
+    }
+
+    char string[100] = "";
     char ch = (char)fgetc(source);
-    int pos = 0;
+    size_t pos = 0;
 
     while (ch != '\n' && ch != EOF) {
         string[pos] = ch;
@@ -217,7 +222,20 @@ int Getline(char* string, FILE* source) {
         ch = (char)fgetc(source);
     }
 
+    if (pos == 0) { return -1; }
+
     string[pos] = '\0';
 
-    return pos;
+    if (pos > *n) {
+        *lineptr = (char*)realloc(*lineptr, pos);
+
+        if (*lineptr == nullptr) { return -1; }
+        else { *n = pos; }
+    }
+
+    for (size_t i = 0; i <= pos; i++) {
+        (*lineptr)[i] = string[i];
+    }
+
+    return (int)pos;
 }

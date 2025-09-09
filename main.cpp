@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 #include <string.h>
 
 #include "color_lib.h"
@@ -41,8 +42,6 @@ int main(void) {
     char str11[10] = "abc";
     PrintColor(YELLOW, "enter string (max_size = 9 symbols)\n");
 
-
-
     Fgets(str11, 10, stdin); // input sth
 
     if (str11[10] != '\0') {
@@ -51,15 +50,27 @@ int main(void) {
     } else {
         PrintColorVar(GREEN, "fgets: %s\n", str11);                             // ur input
     }
+
 //------------------------------------------------------------------------------------
-    char* str_dup = Strdup("abc");
+    char* str_dup = nullptr;
+    str_dup = Strdup("abc");
+
     PrintColorVar(GREEN, "strdup_s: %s\n", str_dup);                            // -> abc
     PrintColorVar(BLUE, "strdup_ad: %p\n", str_dup);                            // -> 0x... (указатель на выделенный адрес строки)
+
+    free(str_dup);
+    str_dup = nullptr;
 //------------------------------------------------------------------------------------
-    char str12[10] = "";
+    size_t size = 5;
+    char* lineptr = nullptr;
+    lineptr = (char*)calloc(size, sizeof(char));
+
     PrintColor(YELLOW, "enter string\n");
-    Getline(str12, stdin);
-    PrintColorVar(GREEN, "getline: %s\n", str12);                               // ur input line
+    Getline(&lineptr, &size, stdin);
+    PrintColorVar(GREEN, "getline: %s\n", lineptr);                             // ur input line
+
+    free(lineptr);
+    lineptr = nullptr;
 
     return 0;
 }

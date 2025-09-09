@@ -8,4 +8,4 @@ char* Strncat(char* destination, const char* source, size_t n);
 int Atoi(const char* string);
 char* Fgets(char* string, int n, FILE* stream);
 char* Strdup(const char* string);
-int Getline(char* string, FILE* stream);
+int Getline(char** lineptr, size_t* n, FILE* source);
