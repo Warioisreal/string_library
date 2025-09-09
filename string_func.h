@@ -1,0 +1,16 @@
+#ifndef _STRING_FUNC_H_
+#define _STRING_FUNC_H_
+
+int Puts(const char* string);
+char* Strchr(const char* string, int ch);
+size_t Strlen(const char* string);
+char* Strcpy(char* destination, const char* source);
+char* Strncpy(char* destination, const char* source, size_t n);
+char* Strcat(char *destination, const char *source);
+char* Strncat(char* destination, const char* source, size_t n);
+int Atoi(const char* string);
+char* Fgets(char* string, int n, FILE* stream);
+char* Strdup(const char* string);
+int Getline(char** lineptr, size_t* n, FILE* source);
+
+#endif // _STRING_FUNC_H_
