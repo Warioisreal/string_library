@@ -1,3 +1,6 @@
+#ifndef _STRING_FUNC_H_
+#define _STRING_FUNC_H_
+
 int Puts(const char* string);
 char* Strchr(const char* string, int ch);
 size_t Strlen(const char* string);
@@ -9,3 +12,5 @@ int Atoi(const char* string);
 char* Fgets(char* string, int n, FILE* stream);
 char* Strdup(const char* string);
 int Getline(char** lineptr, size_t* n, FILE* source);
+
+#endif // _STRING_FUNC_H_
