@@ -232,30 +232,24 @@ int Getline(char** lineptr, size_t* n, FILE* source) {
         *lineptr = (char*)calloc(*n + 1, sizeof(char));
     }
 
-    char string[100] = "";
     char ch = (char)fgetc(source);
     size_t pos = 0;
 
     while (ch != '\n' && ch != EOF) {
-        string[pos] = ch;
+        *lineptr[pos] = ch;
         pos++;
         ch = (char)fgetc(source);
+        if (pos > *n) {
+            *lineptr = (char*)realloc(*lineptr, 2 * (*n));
+
+            if (*lineptr == nullptr) { return -1; }
+            else { *n *= 2; }
+        }
     }
 
     if (pos == 0) { return -1; }
 
-    string[pos] = '\0';
-
-    if (pos > *n) {
-        *lineptr = (char*)realloc(*lineptr, pos);
-
-        if (*lineptr == nullptr) { return -1; }
-        else { *n = pos; }
-    }
-
-    for (size_t i = 0; i <= pos; i++) {
-        (*lineptr)[i] = string[i];
-    }
+    *lineptr[pos] = '\0';
 
     return (int)pos;
 }
